@@ -1,0 +1,8 @@
+Test:
+  handler: Handlers/BankCorrespondentHandler.test
+  timeout: ${self:custom.timeout}
+  events:
+    - http:
+        path: /
+        method: get
+        cors: ${self:custom.cors}

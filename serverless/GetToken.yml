@@ -1,0 +1,8 @@
+GetToken:
+  handler: Handlers/GetToken.get_token
+  timeout: ${self:custom.timeout}
+  events:
+    - http:
+        path: /get-token
+        method: post
+        cors: ${self:custom.cors}

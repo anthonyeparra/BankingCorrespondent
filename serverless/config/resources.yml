@@ -1,0 +1,45 @@
+Resources:
+  GatewayResponse:
+    Type: "AWS::ApiGateway::GatewayResponse"
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+
+      ResponseType: EXPIRED_TOKEN
+      RestApiId:
+        Ref: "ApiGatewayRestApi"
+      StatusCode: "401"
+  AuthFailureGatewayResponse:
+    Type: "AWS::ApiGateway::GatewayResponse"
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+
+      ResponseType: UNAUTHORIZED
+      RestApiId:
+        Ref: "ApiGatewayRestApi"
+      StatusCode: "401"
+  GatewayResponseErrorServer504:
+    Type: "AWS::ApiGateway::GatewayResponse"
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+
+      ResponseType: INTEGRATION_TIMEOUT
+      RestApiId:
+        Ref: "ApiGatewayRestApi"
+      StatusCode: "504"
+  GatewayResponseErrorServer502:
+    Type: "AWS::ApiGateway::GatewayResponse"
+    Properties:
+      ResponseParameters:
+        gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+        gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+
+      ResponseType: INTEGRATION_FAILURE
+      RestApiId:
+        Ref: "ApiGatewayRestApi"
+      StatusCode: "502"

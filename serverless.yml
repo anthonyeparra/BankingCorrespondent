@@ -1,0 +1,12 @@
+service: BankingCorrespondent
+frameworkVersion: '3'
+
+useDotenv: true
+
+plugins: ${file(./serverless/config/plugins.yml)}
+provider: ${file(./serverless/config/provider.yml)}
+custom: ${file(./serverless/config/custom.yml)}
+  
+
+functions:
+  - ${file(./serverless/BankCorrespondent.yml)}
