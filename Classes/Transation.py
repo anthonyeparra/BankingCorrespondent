@@ -9,13 +9,13 @@ from datetime import datetime
 
 ACTIVE = 1
 
-class BankCorrespondent:
+class Transaction:
     
     def __init__(self):
         self.process_sql = ProcessSql()
         self.bh = BasicHelper()
 
-    def get(self, event: EventType) -> ApiResponse:
+    def transation(self, event: EventType) -> ApiResponse:
         
         request = get_input_data(event)
 

@@ -1,11 +1,11 @@
-from Classes.BankCorrespondent import BankCorrespondent
+from Classes.Transation import Transaction
 from Utils.Authorizer import authorizer
 
 @authorizer 
 def test(event, context):
-    class_ = BankCorrespondent()
+    class_ = Transaction()
     methods = {
-        "GET": class_.get,
+        "POST": class_.transation,
     }
     method_to_run = methods[event['httpMethod']]
     return method_to_run(event)

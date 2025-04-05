@@ -1,0 +1,17 @@
+TransationTypeAPI:
+  handler: Handlers/ResourcesHandler.transation_type
+  timeout: ${self:custom.timeout}
+  events:
+    - http:
+        path: /resources/transation_type
+        method: GET
+        cors: ${self:custom.cors}
+
+CorrespondentAPI:
+  handler: Handlers/ResourcesHandler.correspondent
+  timeout: ${self:custom.timeout}
+  events:
+    - http:
+        path: /resources/correspondent
+        method: GET
+        cors: ${self:custom.cors}
