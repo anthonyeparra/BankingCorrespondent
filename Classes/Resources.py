@@ -2,7 +2,7 @@ from Helpers.ProcessSql import ProcessSql
 from Utils.Tools.TypingTools import EventType
 from Utils.Response import ApiResponse
 from Helpers.GeneralTools import get_input_data
-from Models.TransationTypeModel import TransationType
+from Models.TransactionTypeModel import TransactionType
 from Models.CorrespondentModel import Correspondent
 from http import HTTPStatus
 
@@ -33,11 +33,11 @@ class Resources:
             status_code=HTTPStatus.OK
         )
     
-    def get_transation_type(self, event:EventType)->ApiResponse:
+    def get_transation_type(self, event:EventType) -> ApiResponse:
         request = get_input_data(event)
-        return self.get_resources(model=TransationType, request=request)
+        return self.get_resources(model=TransactionType, request=request)
     
-    def get_correspondent(self, event:EventType)->ApiResponse:
+    def get_correspondent(self, event:EventType) -> ApiResponse:
         request = get_input_data(event)
         return self.get_resources(model=Correspondent, request=request)
     

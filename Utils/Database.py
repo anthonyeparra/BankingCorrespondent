@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Query
 from sqlalchemy.pool import QueuePool
 from datetime import datetime, date
+from decimal import Decimal
 from typing import Any, Dict, List
 import os
 
@@ -27,8 +28,12 @@ class CustomQuery(Query):
                 }
             else:
                 # Si no es una instancia de un modelo, es un objeto Row
-                result = {key: value.isoformat() if isinstance(value, (datetime, date)) else value
-                          for key, value in row._mapping.items()}
+                result = {
+                    key: value.isoformat() if isinstance(value, (datetime, date))
+                    else float(value) if isinstance(value, Decimal)
+                    else value
+                    for key, value in row._mapping.items()
+                }
             results.append(result)
         return results
 

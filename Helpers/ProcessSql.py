@@ -112,6 +112,7 @@ class ProcessSql:
         
         # Get the result of the query as a dictionary
         response = response.as_dict()
+        print("response", response)
 
         # Close the database session
         self.db.close()

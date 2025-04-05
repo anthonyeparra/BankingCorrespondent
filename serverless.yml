@@ -9,5 +9,5 @@ custom: ${file(./serverless/config/custom.yml)}
   
 
 functions:
-  - ${file(./serverless/Transation.yml)}
+  - ${file(./serverless/Transaction.yml)}
   - ${file(./serverless/Resources.yml)}

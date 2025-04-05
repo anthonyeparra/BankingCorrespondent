@@ -1,5 +1,5 @@
 Test:
-  handler: Handlers/TransationHandler.test
+  handler: Handlers/TransactionHandler.test
   timeout: ${self:custom.timeout}
   events:
     - http:

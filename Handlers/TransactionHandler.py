@@ -1,4 +1,4 @@
-from Classes.Transation import Transaction
+from Classes.Transaction import Transaction
 from Utils.Authorizer import authorizer
 
 @authorizer 
