@@ -128,9 +128,13 @@ class Transaction:
             joins=[
                 (TransactionTypeModel, TransactionTraceabilityModel.transaction_type_id == TransactionTypeModel.transaction_type_id)
                 ],
-            columns=["TransactionTraceabilityModel.transaction_id",
-            "TransactionTypeModel.name",
-            "TransactionTraceabilityModel.amount_to_withdraw", "TransactionTraceabilityModel.created_at"],
+            columns=[
+                "TransactionTraceabilityModel.transaction_id",
+                "TransactionTypeModel.name",
+                "TransactionTraceabilityModel.amount_to_withdraw",
+                "TransactionTraceabilityModel.created_at",
+                "TransactionTypeModel.icon_code"
+            ],
         )
         return ApiResponse(status_code=HTTPStatus.OK, data=data) 
 

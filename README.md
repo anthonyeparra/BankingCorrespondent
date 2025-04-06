@@ -279,6 +279,53 @@ Respuesta Invalida
     "data": "The provided transaction_type_id does not exist."
 }
 ```
+
+**`POST /users`**
+
+Lista los usuarios o por id
+
+Respuesta Exitosa:
+
+```json
+{
+    "status": 200,
+    "description": "The request was successfull.",
+    "data": {
+        "user_id": 1,
+        "first_name": "Anthony",
+        "last_name": "Parra",
+        "email": "anthonyeparra@hotmail.com"
+    }
+}
+```
+**`GET /transaction`**
+
+Lista todas las transacciones o por cualquier campo,
+es posible que se mande Id corresponsal
+
+Respuesta Exitosa:
+
+```json
+{
+    "status": 200,
+    "description": "The request was successfull.",
+    "data": [
+        {
+            "transaction_id": 70,
+            "name": "Desposito",
+            "amount_to_withdraw": 10000000.0,
+            "created_at": "2025-04-06T17:15:26",
+            "icon_code": "ArrowUpFromLine"
+        },
+        {
+            "transaction_id": 71,
+            "name": "Retiro",
+            "amount_to_withdraw": 10000000.0,
+            "created_at": "2025-04-06T17:16:58",
+            "icon_code": "ArrowDownToLine"
+        }]....
+}
+```
 Adjunto Url de Posmtan y Respositorio github
 
 **URL POSTMAN [https://drive.google.com/drive/folders/1l0uIwEu2G84BNppMCVyS78pKarAYzgfD?usp=sharing]**
