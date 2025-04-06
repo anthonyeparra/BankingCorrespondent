@@ -5,5 +5,10 @@ Transaction:
     - http:
         path: /transaction
         method: POST
-        # authorizer: ${self:custom.authorizerConfig}
+        authorizer: ${self:custom.authorizerConfig}
+        cors: ${self:custom.cors}
+    - http:
+        path: /transaction
+        method: GET
+        authorizer: ${self:custom.authorizerConfig}
         cors: ${self:custom.cors}

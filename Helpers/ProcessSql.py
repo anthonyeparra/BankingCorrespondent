@@ -1,6 +1,6 @@
 from Utils.Database import Database
 from Utils.Tools.QueryTools import get_columns, get_primary_key
-from typing import List, Union, Dict
+from typing import List, Union, Dict, Tuple
 from Utils.Constants.ErrorMessages import (
     VALUE_NOT_EXISTS
 )
@@ -112,7 +112,6 @@ class ProcessSql:
         
         # Get the result of the query as a dictionary
         response = response.as_dict()
-        print("response", response)
 
         # Close the database session
         self.db.close()
@@ -170,6 +169,88 @@ class ProcessSql:
             if not response:
                 # If the ID doesn't exist, raise an error
                 raise ValueError(VALUE_NOT_EXISTS.format(name))
+
+    def get_data_join(
+        self,
+        model: object,
+        request: dict = {},
+        like_filter: List[str] = [],
+        unequal_filter: List[str] = [],
+        columns: Union[List[str], None] = [],
+        all_columns_except: Union[List[str], None] = [],
+        joins: List[Tuple[object, object]] = []  
+    ) -> dict:
+        """
+        Retrieves records from the model based on the given conditions and
+        filters the columns to return. Supports joins with other models.
+
+        Args:
+            model (object): Main SQLAlchemy model.
+            request (dict): Filter conditions.
+            like_filter (List[str]): Columns to apply LIKE filter.
+            unequal_filter (List[str]): Columns to apply != filter.
+            columns (List[str]): List of columns to include (can be model.column_name).
+            all_columns_except (List[str]): Columns to exclude.
+            joins (List[Tuple[object, object]]): List of (ModelToJoin, JoinCondition)
+
+        Returns:
+            dict: Query result as dictionary list.
+        """
+        conditions = [
+            getattr(model, 'active') == True
+        ]
+
+        limit = request.pop('limit', None)
+        offset = request.pop('offset', None)
+
+        # Procesar filtros en columnas del modelo principal
+        for key, value in request.items():
+            if key not in get_columns(model):
+                raise KeyError('Invalid column: ' + key)
+
+            if key in unequal_filter:
+                conditions.append(getattr(model, key) != value)
+            elif key in like_filter:
+                conditions.append(getattr(model, key).like(f'%{value}%'))
+            else:
+                conditions.append(getattr(model, key) == value)
+
+        # Construir columnas
+        if columns:
+            query_columns = []
+            for col in columns:
+                if '.' in col:
+                    model_name, column_name = col.split('.')
+                    mdl = model if model.__name__ == model_name else next((j for j, _ in joins if j.__name__ == model_name), None)
+                    if mdl is None:
+                        raise KeyError(f'Unknown model in columns: {model_name}')
+                    query_columns.append(getattr(mdl, column_name))
+                else:
+                    query_columns.append(getattr(model, col))
+        elif all_columns_except:
+            query_columns = [getattr(model, c) for c in get_columns(model) if c not in all_columns_except]
+        else:
+            query_columns = [getattr(model, c) for c in get_columns(model)]
+
+        # Construir la query
+        query = self.db.query(*query_columns)
+
+        # Aplicar joins
+        for join_model, join_condition in joins:
+            query = query.join(join_model, join_condition)
+
+        # Filtros
+        query = query.filter(*conditions)
+
+        if limit:
+            query = query.limit(limit)
+        if offset:
+            query = query.offset(offset)
+
+        result = query.as_dict()
+        self.db.close()
+        return result
+
     
     
 

@@ -9,6 +9,7 @@ from Helpers.ProcessSql import ProcessSql
 from Models.TransactionTypeModel import TransactionTypeModel
 from Models.CorrespondentModel import CorrespondentModel
 from Models.TransactionModel import TransactionModel
+from Models.TransactionTraceabilityModel import TransactionTraceabilityModel
 from Utils.CustomException import CustomException
 import Schemas.TransactionSchemas as CreateTransactionSchema
 from typing import TypedDict
@@ -88,15 +89,22 @@ class Transaction:
             },
             conditions={'correspondent_id': correspondent_id}
         )
-
-        # Registrar operación
-        self.process_sql.insert(
-            model=TransactionModel(**{
-                'correspondent_id': correspondent_id,
-                'transaction_type_id': transaction_type_id,
-                'amount_to_withdraw': amount
-            }),
+        data_transaction = {
+            'correspondent_id': correspondent_id,
+            'transaction_type_id': transaction_type_id,
+            'amount_to_withdraw': amount
+        }
+        # Register transaction
+        transaction_id = self.process_sql.insert(
+            model=TransactionModel(**data_transaction),
         )
+        data_transaction['transaction_id'] = transaction_id
+
+        # Registrar transaction traceability
+        transaction_id = self.process_sql.insert(
+            model=TransactionTraceabilityModel(**data_transaction),
+        )
+
 
         return ApiResponse(
             status_code=HTTPStatus.OK,
@@ -107,4 +115,24 @@ class Transaction:
                 "ammount": amount
             }
         )
+
+    
+    def get_transaction(self, event: EventType) -> ApiResponse:
+        """
+        Retrieves transaction data for a given correspondent.
+        """
+        request = get_input_data(event)
+        data = self.process_sql.get_data_join(
+            model=TransactionTraceabilityModel,
+            request=request,
+            joins=[
+                (TransactionTypeModel, TransactionTraceabilityModel.transaction_type_id == TransactionTypeModel.transaction_type_id)
+                ],
+            columns=["TransactionTraceabilityModel.transaction_id",
+            "TransactionTypeModel.name",
+            "TransactionTraceabilityModel.amount_to_withdraw", "TransactionTraceabilityModel.created_at"],
+        )
+        return ApiResponse(status_code=HTTPStatus.OK, data=data) 
+
+
     

@@ -6,4 +6,8 @@ Users:
         path: /users
         method: post
         cors: ${self:custom.cors}
+    - http:
+        path: /users
+        method: GET
+        cors: ${self:custom.cors}
         

@@ -33,7 +33,7 @@ class Resources:
             status_code=HTTPStatus.OK
         )
     
-    def get_transation_type(self, event:EventType) -> ApiResponse:
+    def get_transation_type(self, event: EventType) -> ApiResponse:
         """
         Retrieves transaction type data based on the input event.
 

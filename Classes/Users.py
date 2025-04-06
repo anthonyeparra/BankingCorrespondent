@@ -65,7 +65,7 @@ class Users:
             "email": request['email'],  
             "password": password_without_hash
         })
-
+        request.pop('password')
         return ApiResponse(
             status_code=HTTPStatus.CREATED,
             data={
@@ -119,3 +119,27 @@ class Users:
         en lugar de requerir un cambio en el próximo inicio de sesión
         '''
         return True
+
+    def get_user(self, event: EventType) -> ApiResponse:
+        """
+        Retrieves user information based on the provided event data.
+
+        Args:
+            event (EventType): The input event containing user data. Must include:
+                - user_id (str): ID of the user to retrieve.
+
+        Returns:
+            ApiResponse: A response object containing the user information.
+        """
+        request: RequestsUsers = get_input_data(event)
+
+        user_data = self.process_sql.get_data(
+            model=UsersModel,
+            request=request,
+            all_columns_except=['created_at', 'updated_at', 'active' , 'password']
+        )[0]
+
+        return ApiResponse(
+            status_code=HTTPStatus.OK,
+            data=user_data
+        )
