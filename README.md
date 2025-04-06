@@ -81,7 +81,7 @@ La aplicación requiere tener:
 
 **`URL APIS: https://4jve2k1hc2.execute-api.us-east-1.amazonaws.com/dev/`**
 
-## CREAR USUARIO INFORMACION POR CUFES
+## CREAR USUARIO 
 
 **`POST /users`**
 
