@@ -13,7 +13,7 @@ La aplicación requiere tener:
 7. Ejecutar el serverless offline
 8. Base de datos
 
-## APLICACIÓN DESPLEGADA EN AWS LAMBDA + SERVICIO DE COGNITO COMO AUTHENTICADOR
+## APLICACIÓN DESPLEGADA EN AWS LAMBDA + SERVICIO DE COGNITO COMO AUTHENTICADOR + RDS 
 ### Instrucciones
 
 1. **Instalar Python 3.11**
@@ -78,6 +78,7 @@ La aplicación requiere tener:
     Ejecutar el script de la carpeta Db en archivo llamado banking_correspondent.sql
 
     Adjunte Modelo de base de datos.
+    Credenciales de RDS colocadas en el .env para revisar base de datos
 
 **`URL APIS: https://4jve2k1hc2.execute-api.us-east-1.amazonaws.com/dev/`**
 
