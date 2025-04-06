@@ -1,8 +1,9 @@
 import json
-from passlib.hash import bcrypt
+from passlib.hash import sha256_crypt as crypt
 import jwt
 import os
 import datetime
+import re
 from typing import Dict, List
 from Utils.CustomException import CustomException
 
@@ -72,8 +73,7 @@ def hash_password(password: str) -> str:
     Returns:
         str: The hashed password.
     """
-    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    return hashed.decode('utf-8')
+    return crypt.hash(password)
 
 def verify_password(password: str, hashed_password: str) -> bool:
     """
@@ -89,8 +89,7 @@ def verify_password(password: str, hashed_password: str) -> bool:
     Raises:
         CustomException: If the password does not match, with a 401 error code.
     """
-
-    if not bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
+    if not crypt.verify(password, hashed_password):
         raise CustomException("Incorrect credentials", code=401)
 
 
@@ -150,4 +149,37 @@ def verify_token(token: str) -> dict:
     except Exception as e:
         raise CustomException(str(e), code=401)
     
-    return claims 
+    return claims
+
+def validate_password(password: str) -> bool:
+    """
+    Validates whether a password meets basic security requirements.
+
+    Requirements:
+        - Minimum of 8 characters.
+        - At least 1 uppercase letter.
+        - At least 1 number.
+        - At least 1 special character (e.g., !@#$%^&*(),.?":{}|<>\\/).
+
+    Args:
+        password (str): The password to validate.
+
+    Raises:
+        CustomException: If the password does not meet one or more of the criteria.
+
+    Returns:
+        bool: True if the password is valid.
+    """
+    if len(password) < 8:
+        raise CustomException("La contraseña debe tener al menos 8 caracteres.")
+    
+    if not any(c.isupper() for c in password):
+        raise CustomException("La contraseña debe tener al menos 1 letra mayúscula.")
+
+    if not any(c.isdigit() for c in password):
+        raise CustomException("La contraseña debe tener al menos 1 número.")
+
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>\\/]", password):
+        raise CustomException("La contraseña debe tener al menos 1 carácter especial.")
+    
+    return True

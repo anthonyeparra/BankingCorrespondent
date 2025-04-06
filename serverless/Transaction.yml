@@ -1,8 +1,8 @@
-Test:
-  handler: Handlers/TransactionHandler.test
+Transaction:
+  handler: Handlers/TransactionHandler.transaction
   timeout: ${self:custom.timeout}
   events:
     - http:
-        path: /transaction/
+        path: /transaction
         method: POST
         cors: ${self:custom.cors}

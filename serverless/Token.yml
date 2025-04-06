@@ -1,5 +1,5 @@
 GetToken:
-  handler: Handlers/GetToken.get_token
+  handler: Handlers/TokenHandler.get_token
   timeout: ${self:custom.timeout}
   events:
     - http:

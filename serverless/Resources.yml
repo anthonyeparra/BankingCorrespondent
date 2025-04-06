@@ -5,6 +5,7 @@ TransationTypeAPI:
     - http:
         path: /resources/transation_type
         method: GET
+        authorizer: ${self:custom.authorizerConfig}
         cors: ${self:custom.cors}
 
 CorrespondentAPI:
@@ -14,4 +15,5 @@ CorrespondentAPI:
     - http:
         path: /resources/correspondent
         method: GET
+        authorizer: ${self:custom.authorizerConfig}
         cors: ${self:custom.cors}

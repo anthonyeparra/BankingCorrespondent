@@ -11,3 +11,5 @@ custom: ${file(./serverless/config/custom.yml)}
 functions:
   - ${file(./serverless/Transaction.yml)}
   - ${file(./serverless/Resources.yml)}
+  - ${file(./serverless/Users.yml)}
+  - ${file(./serverless/Token.yml)}

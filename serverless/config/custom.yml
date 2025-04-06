@@ -3,6 +3,19 @@ timeout: 29
 pythonRequirements:
   dockerizePip: false
 
+authorizerConfig:
+    name: CognitoUserPoolAuthorizer
+    type: COGNITO_USER_POOLS
+    arn:
+      !Join
+      - ''
+      - - 'arn:aws:cognito-idp:'
+        - ${aws:region}
+        - ':'
+        - ${aws:accountId}
+        - ':userpool/${env:USER_POOL}' 
+    identitySource: method.request.header.Authorization
+    
 cors:
     origin: "*"
     headers:

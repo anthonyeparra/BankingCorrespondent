@@ -2,8 +2,8 @@ from Helpers.ProcessSql import ProcessSql
 from Utils.Tools.TypingTools import EventType
 from Utils.Response import ApiResponse
 from Helpers.GeneralTools import get_input_data
-from Models.TransactionTypeModel import TransactionType
-from Models.CorrespondentModel import Correspondent
+from Models.TransactionTypeModel import TransactionTypeModel
+from Models.CorrespondentModel import CorrespondentModel
 from http import HTTPStatus
 
 class Resources:
@@ -34,10 +34,34 @@ class Resources:
         )
     
     def get_transation_type(self, event:EventType) -> ApiResponse:
+        """
+        Retrieves transaction type data based on the input event.
+
+        This method extracts filter conditions from the input event and calls `get_resources`
+        with the TransactionTypeModel to return the matching transaction type data.
+
+        Args:
+            event (EventType): The event object containing request data (filter conditions).
+
+        Returns:
+            ApiResponse: An ApiResponse object containing the transaction type data and an HTTP status code of OK.
+        """
         request = get_input_data(event)
-        return self.get_resources(model=TransactionType, request=request)
+        return self.get_resources(model=TransactionTypeModel, request=request)
     
     def get_correspondent(self, event:EventType) -> ApiResponse:
+        """
+        Retrieves correspondent data based on the input event.
+
+        This method extracts filter conditions from the input event and calls `get_resources`
+        with the CorrespondentModel to return the matching correspondent data.
+
+        Args:
+            event (EventType): The event object containing request data (filter conditions).
+
+        Returns:
+            ApiResponse: An ApiResponse object containing the correspondent data and an HTTP status code of OK.
+        """
         request = get_input_data(event)
-        return self.get_resources(model=Correspondent, request=request)
+        return self.get_resources(model=CorrespondentModel, request=request)
     

@@ -1,8 +1,28 @@
 name: aws
 runtime: python3.11
 
+
 environment:
   DB_USER: ${env:DB_USER}
   DB_PASSWORD: ${env:DB_PASSWORD}
   DB_HOST: ${env:DB_HOST}
   DB_NAME: ${env:DB_NAME}
+  USER_POOL: ${env:USER_POOL}
+  USER_POOL_CLIENT: ${env:USER_POOL_CLIENT}
+  REGION: us-east-1
+  STAGE: ${opt:stage, "dev"}
+  CLIENT_SECRET: ${env:CLIENT_SECRET}
+  
+iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "secretsmanager:PutSecretValue"
+            - "secretsmanager:GetSecretValue"
+            - cognito-idp:AdminSetUserPassword
+            - "cognito-idp:AdminCreateUser"
+            - "cognito-idp:AdminAddUserToGroup"
+            - s3:GetObject
+            - s3:PutObject
+          Resource: "*"

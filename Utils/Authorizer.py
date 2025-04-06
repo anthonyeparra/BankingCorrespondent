@@ -2,7 +2,6 @@ import json
 from Utils.Response import ApiResponse
 from Utils.CustomException import CustomException
 from sqlalchemy.exc import SQLAlchemyError
-from Helpers.GeneralTools import verify_token
 import traceback
 
 
@@ -51,15 +50,7 @@ def authorizer(function_to_run):
 
     def wrapper(*args, **kwargs):
 
-        try:
-            # event: dict = args[0]
-            # token: str = event['headers'].get('Authorization')
-            # if token:
-            #     user_data = verify_token(token.split(' ')[1])
-            #     event['user_id'] = user_data['user_id']
-            # else:
-            #     raise CustomException("No token provided", 401)
-            
+        try: 
             response = function_to_run(*args, **kwargs)
 
         except KeyError as ke:
