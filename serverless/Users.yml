@@ -7,11 +7,3 @@ Users:
         method: post
         cors: ${self:custom.cors}
         
-# GetUserData:
-#   handler: Handlers/UsersHandler.get_user_data
-#   timeout: ${self:custom.timeout}
-#   events:
-#     - http:
-#         path: /get-user-data
-#         method: get
-#         cors: ${self:custom.cors}
