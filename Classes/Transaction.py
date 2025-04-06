@@ -3,12 +3,14 @@ from http import HTTPStatus
 from Utils.Tools.TypingTools import EventType
 from Utils.Constants.Constant import RETIRO, DEPOSITO
 from Helpers.GeneralTools import get_input_data
+from Utils.Tools.ValidationTools import validate_field
 from Helpers.BasicHelper import BasicHelper
 from Helpers.ProcessSql import ProcessSql
 from Models.TransactionTypeModel import TransactionTypeModel
 from Models.CorrespondentModel import CorrespondentModel
 from Models.TransactionModel import TransactionModel
 from Utils.CustomException import CustomException
+import Schemas.TransactionSchemas as CreateTransactionSchema
 from typing import TypedDict
 
 
@@ -22,6 +24,7 @@ class Transaction:
     def __init__(self):
         self.process_sql = ProcessSql()
         self.basic_helper = BasicHelper()
+        self.schemas = CreateTransactionSchema
 
     def transaction(self, event: EventType) -> ApiResponse:
         """
@@ -47,6 +50,7 @@ class Transaction:
         """
 
         request : RequestTransaction = get_input_data(event)
+        validate_field(self.schemas.CreateTransactionSchema(), request)
 
         transaction_type_id = int(request['transaction_type_id'])
         correspondent_id = int(request['correspondent_id'])

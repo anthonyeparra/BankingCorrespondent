@@ -16,7 +16,7 @@ La aplicación requiere tener:
 ## APLICACIÓN DESPLEGADA EN AWS LAMBDA + SERVICIO DE COGNITO COMO AUTHENTICADOR
 ### Instrucciones
 
-1. **Instalar Python 3.10**
+1. **Instalar Python 3.11**
 
    Asegúrate de tener Python 3.11 instalado. Puedes descargarlo desde [python.org](https://www.python.org/downloads/release/python-3100/).
 
@@ -280,6 +280,6 @@ Respuesta Invalida
 ```
 Adjunto Url de Posmtan y Respositorio github
 
-**URL POSTMAN [https://drive.google.com/drive/folders/1KehDE4oMtxcnvux8KUU0rLoS8_Rnv06G?usp=sharing]**
-
+**URL POSTMAN [https://drive.google.com/drive/folders/1l0uIwEu2G84BNppMCVyS78pKarAYzgfD?usp=sharing]**
+**URL MODEL DB [https://drive.google.com/drive/folders/1bQmQg8RMJBWCC6-E-S9EVSWXdsh7v0B8?usp=sharing]**
 **URL GITHUB [https://github.com/anthonyeparra/BankingCorrespondent]**
