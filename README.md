@@ -323,11 +323,11 @@ Respuesta Exitosa:
             "amount_to_withdraw": 10000000.0,
             "created_at": "2025-04-06T17:16:58",
             "icon_code": "ArrowDownToLine"
-        }]....
+        }]...
 }
 ```
 Adjunto Url de Posmtan y Respositorio github
 
-**URL POSTMAN [https://drive.google.com/drive/folders/1l0uIwEu2G84BNppMCVyS78pKarAYzgfD?usp=sharing]**
-**URL MODEL DB [https://drive.google.com/drive/folders/1bQmQg8RMJBWCC6-E-S9EVSWXdsh7v0B8?usp=sharing]**
+**URL POSTMAN [https://drive.google.com/drive/folders/1UNYJhDpVCQTIYtuRPA-4dpfq126aBEA4?usp=sharing]**
+**URL MODEL DB [https://drive.google.com/drive/folders/1yRAE_ksUmmgZHc_4pMvtnQZRmw1TPl_v?usp=sharing]**
 **URL GITHUB [https://github.com/anthonyeparra/BankingCorrespondent]**
