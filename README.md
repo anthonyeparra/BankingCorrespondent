@@ -1,4 +1,4 @@
-# WEB SCRAPING TEST - PLATAFORM
+# BANKING CORRESPONDENT TEST - PLATAFORM
 
 ## Requisitos de la Aplicación
 
